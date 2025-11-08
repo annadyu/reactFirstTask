@@ -1,17 +1,21 @@
-const TaskFilter = () => {
-    return (
-        <ul className="filters">
-            <li>
-                <button className="selected">All</button>
-            </li>
-            <li>
-                <button>Active</button>
-            </li>
-            <li>
-                <button>Completed</button>
-            </li>
-        </ul>
-    );
+import TaskList from "./taskList";
+
+const TaskFilter = ({todoFilter}) => {
+  return (
+    <ul className="filters">
+      <li>
+        <button className="selected" onClick={() => todoFilter('all')}>
+          All
+        </button> 
+      </li>
+      <li>
+        <button onClick={() => todoFilter("active")}>Active</button>
+      </li>
+      <li>
+        <button onClick={() => todoFilter("completed")}>Completed</button>
+      </li>
+    </ul>
+  );
 };
 
 export default TaskFilter;

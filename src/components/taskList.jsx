@@ -6,7 +6,7 @@ const TaskList = ({
   deliteTask,
   editTask,
   confirming,
-  onSave,
+  onSave
 }) => {
   return (
     <ul className="todo-list">
@@ -17,10 +17,8 @@ const TaskList = ({
           description={el.description}
           completedData={el.completedData}
           completed={el.completed}
-          editing={el.editing}
           handleClick={handleClick}
           deliteTask={deliteTask}
-          editTask={editTask}
           confirming={confirming}
           onSave={onSave}
         />

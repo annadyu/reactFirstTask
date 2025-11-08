@@ -7,6 +7,28 @@ import NewTaskForm from "./components/NewTaskForm";
 import "./App.css";
 
 function App() {
+  const [filter, setFilter] = useState("all");
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      description: "Cleaning :-)",
+      completed: false,
+      completedData: "3 min ago",
+    },
+    {
+      id: 2,
+      description: "Dinner time ;3",
+      completed: false,
+      completedData: "1 hour ago",
+    },
+    {
+      id: 3,
+      description: "Watching TV",
+      completed: false,
+      completedData: "2 min ago",
+    },
+  ]);
+
   const handleClick = (id) => {
     setTasks(
       tasks.map((el) =>
@@ -14,7 +36,6 @@ function App() {
           ? {
               ...el,
               completed: true,
-              active: false,
             }
           : el
       )
@@ -26,18 +47,20 @@ function App() {
     setTasks(newTasks);
   };
 
-  const editTask = (id) => {
-    setTasks(
-      tasks.map((el) =>
-        el.id === id
-          ? {
-              ...el,
-              editing: true,
-            }
-          : el
-      )
-    );
+  const clearTask = () => {
+    const cleared = tasks.filter((el) => !el.completed);
+    setTasks(cleared);
   };
+
+  const todoFilter = (type) => {
+    setFilter(type);
+  };
+
+  const filteredTasks = tasks.filter((el) => {
+    if (filter === "active") return !el.completed;
+    if (filter === "completed") return el.completed;
+    return true;
+  });
 
   const onSave = (id, newDescription) => {
     setTasks(
@@ -46,51 +69,43 @@ function App() {
           ? {
               ...el,
               description: newDescription,
-              editing: false,
             }
           : el
       )
     );
   };
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      description: "Cleaning :-)",
-      completed: false,
-      active: true,
-      completedData: "3 min ago",
-      editing: false,
-    },
-    {
-      id: 2,
-      description: "Dinner time ;3",
-      completed: false,
-      active: true,
-      completedData: "1 hour ago",
-      editing: false,
-    },
-    {
-      id: 3,
-      description: "Watching TV",
-      completed: false,
-      active: true,
-      completedData: "2 min ago",
-      editing: false,
-    },
-  ]);
+  const addTask = (description) => {
+    setTasks([
+      ...tasks,
+      {
+        id: new Date(),
+        description,
+        completed: false,
+      },
+    ]);
+  };
+
+  const tasksLeft =
+    tasks.filter ((el) => !el.completed).length;
+  
+
+  window.addTask = addTask;
 
   return (
     <>
       <NewTaskForm />
       <TaskList
-        tasks={tasks}
         handleClick={handleClick}
         deliteTask={deliteTask}
-        editTask={editTask}
         onSave={onSave}
+        tasks={filteredTasks}
       />
-      <Footer />
+      <Footer 
+      clearTask={clearTask}
+       todoFilter={todoFilter} 
+         tasksLeft={tasksLeft}
+       />
     </>
   );
 }
