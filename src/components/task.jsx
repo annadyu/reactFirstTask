@@ -1,4 +1,6 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+import { formatDistanceToNow } from "date-fns";
 
 const Task = ({
   completed,
@@ -23,6 +25,8 @@ const Task = ({
     }
   };
 
+  const distanceToNow = formatDistanceToNow(new Date(completedData));
+
   return (
     <li className={` ${completed ? "completed" : "active"}`}>
       {isOpen ? (
@@ -43,7 +47,7 @@ const Task = ({
           />
           <label>
             <span className="description">{description}</span>
-            <span className="created">{completedData}</span>
+            <span className="created">{distanceToNow} ago</span>
           </label>
           <button className="icon icon-edit" onClick={openModal}></button>
           <button
@@ -54,6 +58,21 @@ const Task = ({
       )}
     </li>
   );
+};
+
+Task.PropTypes = {
+  completed: PropTypes.bool.isRequired,
+  description: PropTypes.string.isRequired,
+  completedData: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  deliteTask: PropTypes.func,
+  onSave: PropTypes.func,
+};
+
+Task.defaultProps = {
+  completed: false,
+  completedData: "added just now",
 };
 
 export default Task;

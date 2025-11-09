@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 import Task from "./components/task";
 import Footer from "./components/Footer";
 import TaskFilter from "./components/TasksFilter";
 import TaskList from "./components/taskList";
 import NewTaskForm from "./components/NewTaskForm";
+import PropTypes from "prop-types";
 import "./App.css";
 
 function App() {
@@ -13,19 +15,19 @@ function App() {
       id: 1,
       description: "Cleaning :-)",
       completed: false,
-      completedData: "3 min ago",
+      completedData: new Date(Date.now() - 2 * 60 * 1000),
     },
     {
       id: 2,
       description: "Dinner time ;3",
       completed: false,
-      completedData: "1 hour ago",
+      completedData: new Date(Date.now() - 60 * 60 * 1000),
     },
     {
       id: 3,
       description: "Watching TV",
       completed: false,
-      completedData: "2 min ago",
+      completedData: new Date(Date.now() - 3 * 60 * 1000),
     },
   ]);
 
@@ -75,37 +77,34 @@ function App() {
     );
   };
 
-  const addTask = (description) => {
+  const addTask = (newTask) => {
     setTasks([
       ...tasks,
       {
-        id: new Date(),
-        description,
+        id: Date.now(),
+        description : newTask,
         completed: false,
+        completedData: new Date(),
       },
     ]);
   };
 
-  const tasksLeft =
-    tasks.filter ((el) => !el.completed).length;
-  
-
-  window.addTask = addTask;
+  const tasksLeft = tasks.filter((el) => !el.completed).length;
 
   return (
     <>
-      <NewTaskForm />
+      <NewTaskForm addTask={addTask} />
       <TaskList
         handleClick={handleClick}
         deliteTask={deliteTask}
         onSave={onSave}
         tasks={filteredTasks}
       />
-      <Footer 
-      clearTask={clearTask}
-       todoFilter={todoFilter} 
-         tasksLeft={tasksLeft}
-       />
+      <Footer
+        clearTask={clearTask}
+        todoFilter={todoFilter}
+        tasksLeft={tasksLeft}
+      />
     </>
   );
 }
