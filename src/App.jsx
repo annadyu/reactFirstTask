@@ -31,7 +31,7 @@ function App() {
     },
   ]);
 
-  const handleClick = (id) => {
+  const handleChangeCompleted = (id) => {
     setTasks(
       tasks.map((el) =>
         el.id === id
@@ -44,7 +44,7 @@ function App() {
     );
   };
 
-  const deliteTask = (id) => {
+  const deleteTask = (id) => {
     const newTasks = tasks.filter((tasks) => tasks.id !== id);
     setTasks(newTasks);
   };
@@ -64,7 +64,7 @@ function App() {
     return true;
   });
 
-  const onSave = (id, newDescription) => {
+  const onSaveNewTask = (id, newDescription) => {
     setTasks(
       tasks.map((el) =>
         el.id === id
@@ -79,13 +79,13 @@ function App() {
 
   const addTask = (newTask) => {
     setTasks([
-      ...tasks,
       {
         id: Date.now(),
-        description : newTask,
+        description: newTask,
         completed: false,
         completedData: new Date(),
       },
+      ...tasks,
     ]);
   };
 
@@ -93,18 +93,22 @@ function App() {
 
   return (
     <>
-      <NewTaskForm addTask={addTask} />
-      <TaskList
-        handleClick={handleClick}
-        deliteTask={deliteTask}
-        onSave={onSave}
-        tasks={filteredTasks}
-      />
-      <Footer
-        clearTask={clearTask}
-        todoFilter={todoFilter}
-        tasksLeft={tasksLeft}
-      />
+      <section className="todoapp">
+        <NewTaskForm addTask={addTask} />
+        <section className="main">
+          <TaskList
+            handleChangeCompleted={handleChangeCompleted}
+            deleteTask={deleteTask}
+            onSaveNewTask={onSaveNewTask}
+            tasks={filteredTasks}
+          />
+          <Footer
+            clearTask={clearTask}
+            todoFilter={todoFilter}
+            tasksLeft={tasksLeft}
+          />
+        </section>
+      </section>
     </>
   );
 }

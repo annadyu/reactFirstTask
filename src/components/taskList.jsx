@@ -1,7 +1,7 @@
 import Task from "./task";
 import PropTypes from "prop-types";
 
-const TaskList = ({ tasks, handleClick, deliteTask, confirming, onSave }) => {
+const TaskList = ({ tasks, handleChangeCompleted, deleteTask, confirming, onSaveNewTask }) => {
   return (
     <ul className="todo-list">
       {tasks.map((el) => (
@@ -11,10 +11,10 @@ const TaskList = ({ tasks, handleClick, deliteTask, confirming, onSave }) => {
           description={el.description}
           completedData={el.completedData}
           completed={el.completed}
-          handleClick={handleClick}
-          deliteTask={deliteTask}
+          handleChangeCompleted={handleChangeCompleted}
+          deleteTask={deleteTask}
          
-          onSave={onSave}
+          onSaveNewTask={onSaveNewTask}
         />
       ))}
     </ul>
@@ -31,10 +31,10 @@ TaskList.propTypes = {
       completedData: PropTypes.string,
     })
   ).isRequired,
-  handleClick: PropTypes.func.isRequired,
-  deliteTask: PropTypes.func,
+  handleChangeCompleted: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func,
   confirming: PropTypes.func.isRequired,
-  onSave: PropTypes.func,
+  onSaveNewTask: PropTypes.func,
 };
 
 export default TaskList;

@@ -6,10 +6,10 @@ const Task = ({
   completed,
   description,
   completedData,
-  handleClick,
+  handleChangeCompleted,
   id,
-  deliteTask,
-  onSave,
+  deleteTask,
+  onSaveNewTask,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +20,7 @@ const Task = ({
 
   const confirming = (event) => {
     if (event.key === "Enter") {
-      onSave(id, newDescription);
+      onSaveNewTask(id, newDescription);
       closeModal();
     }
   };
@@ -43,7 +43,7 @@ const Task = ({
             className="toggle"
             type="checkbox"
             checked={completed}
-            onChange={() => handleClick(id)}
+            onChange={() => handleChangeCompleted(id)}
           />
           <label>
             <span className="description">{description}</span>
@@ -52,7 +52,7 @@ const Task = ({
           <button className="icon icon-edit" onClick={openModal}></button>
           <button
             className="icon icon-destroy"
-            onClick={() => deliteTask(id)}
+            onClick={() => deleteTask(id)}
           ></button>
         </div>
       )}
@@ -64,10 +64,10 @@ Task.PropTypes = {
   completed: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   completedData: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleChangeCompleted: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  deliteTask: PropTypes.func,
-  onSave: PropTypes.func,
+  deleteTask: PropTypes.func,
+  onSaveNewTask: PropTypes.func,
 };
 
 Task.defaultProps = {
