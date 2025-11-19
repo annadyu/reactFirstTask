@@ -5,18 +5,17 @@ import { formatDistanceToNow } from "date-fns";
 const Task = ({
   completed,
   description,
-  completedData,
+  completedDate,
   handleChangeCompleted,
   id,
   deleteTask,
   onSaveNewTask,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [newDescription, setNewDescription] = useState(description);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
-  const [newDescription, setNewDescription] = useState(description);
 
   const confirming = (event) => {
     if (event.key === "Enter") {
@@ -25,37 +24,35 @@ const Task = ({
     }
   };
 
-  const distanceToNow = formatDistanceToNow(new Date(completedData));
+  const distanceToNow = formatDistanceToNow(new Date(completedDate));
 
   return (
-    <li className={` ${completed ? "completed" : "active"}`}>
-      {isOpen ? (
+    <li className={`${isOpen ? "editing" : ""} ${completed ? "completed" : ""}`}>
+      <div>
         <input
-          type="text"
-          value={newDescription}
-          onChange={(e) => setNewDescription(e.target.value)}
-          onKeyDown={confirming}
-          onBlur={confirming}
+          className="toggle"
+          type="checkbox"
+          checked={completed}
+          onChange={() => handleChangeCompleted(id)}
         />
-      ) : (
-        <div>
-          <input
-            className="toggle"
-            type="checkbox"
-            checked={completed}
-            onChange={() => handleChangeCompleted(id)}
-          />
-          <label>
-            <span className="description">{description}</span>
-            <span className="created">{distanceToNow} ago</span>
-          </label>
-          <button className="icon icon-edit" onClick={openModal}></button>
-          <button
-            className="icon icon-destroy"
-            onClick={() => deleteTask(id)}
-          ></button>
-        </div>
-      )}
+        <label>
+          <span className="description">{description}</span>
+          <span className="created">{distanceToNow} ago</span>
+        </label>
+        <button className="icon icon-edit" onClick={openModal}></button>
+        <button
+          className="icon icon-destroy"
+          onClick={() => deleteTask(id)}
+        ></button>
+      </div>
+      <input
+        type="text"
+        className="edit"
+        value={newDescription}
+        onChange={(e) => setNewDescription(e.target.value)}
+        onKeyDown={confirming}
+        onBlur={confirming}
+      />
     </li>
   );
 };
@@ -63,7 +60,7 @@ const Task = ({
 Task.PropTypes = {
   completed: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
-  completedData: PropTypes.string.isRequired,
+  completedDate: PropTypes.string.isRequired,
   handleChangeCompleted: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   deleteTask: PropTypes.func,
@@ -72,7 +69,7 @@ Task.PropTypes = {
 
 Task.defaultProps = {
   completed: false,
-  completedData: "added just now",
+  completedDate: "added just now",
 };
 
 export default Task;

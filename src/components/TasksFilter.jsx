@@ -1,19 +1,26 @@
 import TaskList from "./taskList";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 const TaskFilter = ({ todoFilter }) => {
+  const [filterChange, setFilterChange] = useState("all");
+
+  const changeFilter = (value) => {
+    setFilterChange(value);
+  };
+
   return (
     <ul className="filters">
       <li>
-        <button className="selected" onClick={() => todoFilter("all")}>
+        <button className= {changeFilter === "all" ? "selected" : ""} onClick={() => todoFilter("all")}>
           All
         </button>
       </li>
       <li>
-        <button onClick={() => todoFilter("active")}>Active</button>
+        <button className= {changeFilter === "active" ? "selected" : ""}  onClick={() => todoFilter("active")}>Active</button>
       </li>
       <li>
-        <button onClick={() => todoFilter("completed")}>Completed</button>
+        <button className={changeFilter === "completed" ? "selected" : ""} onClick={() => todoFilter("completed")}>Completed</button>
       </li>
     </ul>
   );

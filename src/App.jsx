@@ -15,19 +15,19 @@ function App() {
       id: 1,
       description: "Cleaning :-)",
       completed: false,
-      completedData: new Date(Date.now() - 2 * 60 * 1000),
+      completedDate: new Date(Date.now() - 2 * 60 * 1000),
     },
     {
       id: 2,
       description: "Dinner time ;3",
       completed: false,
-      completedData: new Date(Date.now() - 60 * 60 * 1000),
+      completedDate: new Date(Date.now() - 60 * 60 * 1000),
     },
     {
       id: 3,
       description: "Watching TV",
       completed: false,
-      completedData: new Date(Date.now() - 3 * 60 * 1000),
+      completedDate: new Date(Date.now() - 3 * 60 * 1000),
     },
   ]);
 
@@ -54,8 +54,8 @@ function App() {
     setTasks(cleared);
   };
 
-  const todoFilter = (type) => {
-    setFilter(type);
+  const todoFilter = (value) => {
+    setFilter(value);
   };
 
   const filteredTasks = tasks.filter((el) => {
@@ -83,7 +83,7 @@ function App() {
         id: Date.now(),
         description: newTask,
         completed: false,
-        completedData: new Date(),
+        completedDate: new Date(),
       },
       ...tasks,
     ]);

@@ -9,7 +9,7 @@ const TaskList = ({ tasks, handleChangeCompleted, deleteTask, confirming, onSave
           key={el.id}
           id={el.id}
           description={el.description}
-          completedData={el.completedData}
+          completedDate={el.completedDate}
           completed={el.completed}
           handleChangeCompleted={handleChangeCompleted}
           deleteTask={deleteTask}
@@ -28,7 +28,7 @@ TaskList.propTypes = {
       id: PropTypes.number.isRequired,
       description: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
-      completedData: PropTypes.string,
+      completedDate: PropTypes.string,
     })
   ).isRequired,
   handleChangeCompleted: PropTypes.func.isRequired,
