@@ -22,6 +22,10 @@ const Task = ({
       onSaveNewTask(id, newDescription);
       closeModal();
     }
+
+    if (event.key === "Escape") {
+      closeModal()
+    }
   };
 
   const distanceToNow = formatDistanceToNow(new Date(completedDate));

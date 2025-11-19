@@ -180,6 +180,7 @@ body {
 }
 
 .todo-list li .toggle {
+  left: 0;
   text-align: center;
   width: 40px;
   /* auto, since non-WebKit browsers doesn't support input styling */
@@ -347,6 +348,7 @@ body {
 }
 
 .filters li button.selected {
+  
   border-color: rgba(175, 47, 47, 0.2);
 }
 
